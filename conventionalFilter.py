@@ -46,10 +46,12 @@ print(f"RMSE decrease: {RMSE_decrease:.2f}%")
 signal_power = np.mean(clean**2, axis=1)
 noise_power = np.mean((noisy - clean)**2, axis=1)
 
+# Compute signal-to-noise ratios
 SNR = 10 * np.log10(signal_power / noise_power)
 rep_percentiles = [10, 50, 90]
 rep_indices = []
 
+# Find signals with SNRs at the desired percentiles
 for percent in rep_percentiles:
     rep_SNR = np.percentile(SNR, percent)
     index = np.argmin(np.abs(SNR - rep_SNR))
